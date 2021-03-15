@@ -24,7 +24,16 @@ define('CSE_TOKEN', 'partner-pub-2698861478625135:3033704849');
             $options[CURLOPT_HTTPHEADER1] = $headers;
         }
         curl_setopt_array($ch, $options);
+        $response = curl_exec($ch);
+        $httpcode = curl_getinfo($ch);
+        if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
+            $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+            $body = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+            curl_close($ch);
+            return array($header, $body);
+        }
 
     }
+    
 
 ?>
