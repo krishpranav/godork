@@ -59,7 +59,15 @@ define('CSE_TOKEN', 'partner-pub-2698861478625135:3033704849');
         $url = "https://cse.google.com/cse/element/v1?rsz=".$rsz[1]."&num=10&&start=".$i."&hl=en&source=gcsc&gss=.com&cselibv=".$csiLib[1]."&cx=".$cx[1]."&q=".rawurlencode($dork)."&safe=off&cse_tok=".$cseToken[1]."&exp=".$exp[1].",".$exp[2]."&callback=google.search.cse.api16950";
         $json = Curl($url, 0, $headers);
         preg_match_all('#"clicktrackUrl": "(.*?)"#si', $json[1], $trackUrl);
-        
+        if($trackUrl[1] != NULL){
+            foreach($trackUrl[1] as $index => $key){
+                echo urldecode(get_string($key, '&q=', '&sa'))."\n";
+            }
+        }else{
+            echo "{!} DONE!\n";
+            exit();
+        }
+        $i = $i+10;
     }
 
 ?>
